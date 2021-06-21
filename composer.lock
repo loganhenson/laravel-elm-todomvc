@@ -4566,16 +4566,16 @@
         },
         {
             "name": "tightenco/laravel-elm",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/laravel-elm.git",
-                "reference": "fd456949c958be692beb35568465a9cd67ae2b52"
+                "reference": "a1eb34efa10282e8e18ffaf8a58658516432f5af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/laravel-elm/zipball/fd456949c958be692beb35568465a9cd67ae2b52",
-                "reference": "fd456949c958be692beb35568465a9cd67ae2b52",
+                "url": "https://api.github.com/repos/tighten/laravel-elm/zipball/a1eb34efa10282e8e18ffaf8a58658516432f5af",
+                "reference": "a1eb34efa10282e8e18ffaf8a58658516432f5af",
                 "shasum": ""
             },
             "require": {
@@ -4620,9 +4620,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/laravel-elm/issues",
-                "source": "https://github.com/tighten/laravel-elm/tree/v4.0.0"
+                "source": "https://github.com/tighten/laravel-elm/tree/v4.0.1"
             },
-            "time": "2021-06-14T14:36:19+00:00"
+            "time": "2021-06-21T20:43:03+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

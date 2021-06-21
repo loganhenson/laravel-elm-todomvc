@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return Elm::render('Welcome', ['name' => 'Logan']);
-});
+})->name('welcome');
 
 Elm::authRoutes();
 

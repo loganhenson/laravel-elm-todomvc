@@ -18,64 +18,69 @@ port delete : String -> Cmd msg
 
 
 
+welcome : String
+welcome =
+    "/"
+
+
 login : String
 login =
-    "/login"
+    "login"
 
 
 logout : String
 logout =
-    "/logout"
+    "logout"
 
 
 register : String
 register =
-    "/register"
+    "register"
 
 
 passwordRequest : String
 passwordRequest =
-    "/password/reset"
+    "password/reset"
 
 
 passwordEmail : String
 passwordEmail =
-    "/password/email"
+    "password/email"
 
 
 passwordReset : String -> String
 passwordReset token =
-    "/password/reset/{token}"
+    "password/reset/{token}"
         |> String.replace "{token}" token
 
 
 passwordUpdate : String
 passwordUpdate =
-    "/password/reset"
+    "password/reset"
 
 
 verificationNotice : String
 verificationNotice =
-    "/email/verify"
+    "email/verify"
 
 
 verificationVerify : String -> String -> String
 verificationVerify id hash =
-    "/email/verify/{id}/{hash}"
+    "email/verify/{id}/{hash}"
         |> String.replace "{id}" id
         |> String.replace "{hash}" hash
 
 
 verificationResend : String
 verificationResend =
-    "/email/resend"
+    "email/resend"
 
 
 home : String
 home =
-    "/home"
+    "home"
 
 
 todosStore : String
 todosStore =
-    "/todos"
+    "todos"

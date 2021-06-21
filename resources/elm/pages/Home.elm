@@ -9,7 +9,7 @@ import Json.Decode as Json exposing (Decoder, Value, bool, decodeValue, int, lis
 import Json.Decode.Pipeline exposing (required)
 import Json.Encode
 import LaravelElm exposing (Page, page)
-import Routes exposing (post)
+import Routes
 
 
 type alias Props =
@@ -101,7 +101,7 @@ update msg { props, state } =
             ( { props = props
               , state = { state | field = "" }
               }
-            , post <|
+            , Routes.post <|
                 Json.Encode.object
                     [ ( "url", Json.Encode.string <| Routes.todosStore )
                     , ( "data"
