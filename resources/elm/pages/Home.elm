@@ -19,7 +19,7 @@ type alias Props =
 type alias State =
     { field : String
     , visibility : String
-    , editingTodoId : Maybe Int
+    , editingTodo : Maybe Todo
     }
 
 
@@ -66,7 +66,7 @@ decodeProps =
 
 stateFromProps : Props -> State
 stateFromProps props =
-    { field = "", visibility = "All", editingTodoId = Nothing }
+    { field = "", visibility = "All", editingTodo = Nothing }
 
 
 main : Page Model Msg
@@ -80,12 +80,69 @@ main =
         }
 
 
+getTodoById : List Todo -> Int -> Maybe Todo
+getTodoById todos id =
+    List.filter
+        (\todo ->
+            todo.id == id
+        )
+        todos
+        |> List.head
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg { props, state } =
     case msg of
         NewProps newProps ->
             ( { props = Result.withDefault props (decodeValue decodeProps newProps)
               , state = state
+              }
+            , Cmd.none
+            )
+
+        EditingEntry id editing ->
+            ( { props = props
+              , state =
+                    { state
+                        | editingTodo =
+                            if editing then
+                                getTodoById props.todos id
+
+                            else
+                                Nothing
+                    }
+              }
+            , case ( state.editingTodo, editing ) of
+                ( Just editingTodo, False ) ->
+                    Routes.patch <|
+                        Json.Encode.object
+                            [ ( "url", Json.Encode.string <| Routes.todosUpdate (String.fromInt editingTodo.id) )
+                            , ( "data"
+                              , Json.Encode.object
+                                    [ ( "description"
+                                      , Json.Encode.string editingTodo.description
+                                      )
+                                    ]
+                              )
+                            ]
+
+                _ ->
+                    Cmd.none
+            )
+
+        UpdateEntry id text ->
+            ( { props = props
+              , state =
+                    { state
+                        | editingTodo =
+                            case state.editingTodo of
+                                Just editingTodo ->
+                                    Just { editingTodo | description = text }
+
+                                Nothing ->
+                                    getTodoById props.todos id
+                                        |> Maybe.map (\todo -> { todo | description = text })
+                    }
               }
             , Cmd.none
             )
@@ -106,7 +163,14 @@ update msg { props, state } =
                     [ ( "url", Json.Encode.string <| Routes.todosUpdate (String.fromInt id) )
                     , ( "data"
                       , Json.Encode.object
-                            [ ( "completed", Json.Encode.string <| if completed then "1" else "0" )
+                            [ ( "completed"
+                              , Json.Encode.string <|
+                                    if completed then
+                                        "1"
+
+                                    else
+                                        "0"
+                              )
                             ]
                       )
                     ]
@@ -158,7 +222,7 @@ view { props, state } =
         [ section
             [ class "todoapp" ]
             [ lazy viewInput state.field
-            , lazy3 viewTodos state.editingTodoId state.visibility props.todos
+            , lazy3 viewTodos state.editingTodo state.visibility props.todos
             , lazy2 viewControls state.visibility props.todos
             ]
         , infoFooter
@@ -196,8 +260,8 @@ onEnter msg =
     on "keydown" (Json.andThen isEnter keyCode)
 
 
-viewTodos : Maybe Int -> String -> List Todo -> Html Msg
-viewTodos editingTodoId visibility todos =
+viewTodos : Maybe Todo -> String -> List Todo -> Html Msg
+viewTodos editingTodo visibility todos =
     let
         isVisible todo =
             case visibility of
@@ -236,13 +300,13 @@ viewTodos editingTodoId visibility todos =
             [ for "toggle-all" ]
             [ text "Mark all as complete" ]
         , Keyed.ul [ class "todo-list" ] <|
-            List.map (viewKeyedTodo editingTodoId) (List.filter isVisible todos)
+            List.map (viewKeyedTodo editingTodo) (List.filter isVisible todos)
         ]
 
 
-viewKeyedTodo : Maybe Int -> Todo -> ( String, Html Msg )
-viewKeyedTodo editingTodoId todo =
-    ( String.fromInt todo.id, lazy2 viewTodo (Maybe.withDefault -1 editingTodoId == todo.id) todo )
+viewKeyedTodo : Maybe Todo -> Todo -> ( String, Html Msg )
+viewKeyedTodo editingTodo todo =
+    ( String.fromInt todo.id, lazy2 viewTodo (Maybe.map .id editingTodo == Just todo.id) todo )
 
 
 viewTodo : Bool -> Todo -> Html Msg

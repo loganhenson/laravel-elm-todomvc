@@ -29,12 +29,14 @@ class TodosController extends Controller
     public function update($id)
     {
         request()->validate([
-            'completed' => 'required|bool',
+            'completed' => 'sometimes|required|bool',
+            'description' => 'sometimes|required|string|max:255',
         ]);
 
-        auth()->user()->todos()->findOrFail($id)->update([
-            'completed' => request('completed'),
-        ]);
+        auth()->user()->todos()->findOrFail($id)->update(request()->only([
+            'description',
+            'completed',
+        ]));
 
         return redirect()->to('home');
     }
