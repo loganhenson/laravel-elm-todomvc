@@ -5,6 +5,7 @@ body {
 }
 
 .todomvc-wrapper {
+    @apply p-4;
     visibility: visible !important;
 }
 
@@ -163,6 +164,7 @@ label[for='toggle-all'] {
 }
 
 .todo-list li.editing {
+    display: flex;
     border-bottom: none;
     padding: 0;
 }
