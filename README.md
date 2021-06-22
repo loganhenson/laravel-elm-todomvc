@@ -1,6 +1,3 @@
-![Laravel Elm Todo-MVC](https://raw.githubusercontent.com/loganhenson/laravel-elm-todomvc/master/laravel-todomvc-image.png)
-
-
 # TodoMVC in Laravel Elm
 
 Clone & run this repo to see what a (somewhat) real life Laravel Elm app looks like!
@@ -39,3 +36,5 @@ cp .env.example .env
 ```bash
 php artisan migrate
 ```
+
+![Laravel Elm Todo-MVC](https://github.com/loganhenson/laravel-elm-todomvc/blob/main/laravel-elm-todomvc-image.png?raw=true)
