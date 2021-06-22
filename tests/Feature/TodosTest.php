@@ -87,4 +87,18 @@ class TodosTest extends TestCase
 
         $this->get(route('home'))->assertJsonCount(1, 'props.todos');
     }
+
+    /** @test */
+    public function can_bulk_toggle()
+    {
+        $user = User::factory()->has(Todo::factory()->count(3))->create();
+
+        $this->actingAs($user)
+            ->post(route('todos.toggle-all'), [
+                'completed' => true,
+            ])
+            ->assertRedirect(route('home'));
+
+        $this->assertEquals(3, Todo::where('completed', true)->count());
+    }
 }

@@ -96,3 +96,8 @@ todosUpdate : String -> String
 todosUpdate id =
     "todos/{id}"
         |> String.replace "{id}" id
+
+
+todosToggleAll : String
+todosToggleAll =
+    "todos/toggle-all"

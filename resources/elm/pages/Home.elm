@@ -205,6 +205,28 @@ update msg { props, state } =
             , Cmd.none
             )
 
+        CheckAll completed ->
+            ( { props = props
+              , state = state
+              }
+            , Routes.post <|
+                Json.Encode.object
+                    [ ( "url", Json.Encode.string <| Routes.todosToggleAll )
+                    , ( "data"
+                      , Json.Encode.object
+                            [ ( "completed"
+                              , Json.Encode.string <|
+                                    if completed then
+                                        "1"
+
+                                    else
+                                        "0"
+                              )
+                            ]
+                      )
+                    ]
+            )
+
         _ ->
             ( { props = props
               , state = state

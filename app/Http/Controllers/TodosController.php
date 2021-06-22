@@ -19,13 +19,6 @@ class TodosController extends Controller
         return redirect()->to('home');
     }
 
-    public function destroy($id)
-    {
-        auth()->user()->todos()->findOrFail($id)->delete();
-
-        return redirect()->to('home');
-    }
-
     public function update($id)
     {
         request()->validate([
@@ -37,6 +30,13 @@ class TodosController extends Controller
             'description',
             'completed',
         ]));
+
+        return redirect()->to('home');
+    }
+
+    public function destroy($id)
+    {
+        auth()->user()->todos()->findOrFail($id)->delete();
 
         return redirect()->to('home');
     }
