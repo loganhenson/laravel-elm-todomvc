@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Todo;
-
 class TodosToggleAllController extends Controller
 {
     public function __invoke()
