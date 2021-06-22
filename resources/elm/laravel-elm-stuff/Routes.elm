@@ -101,3 +101,8 @@ todosUpdate id =
 todosToggleAll : String
 todosToggleAll =
     "todos/toggle-all"
+
+
+todosDeleteComplete : String
+todosDeleteComplete =
+    "todos/delete-complete"

@@ -234,11 +234,11 @@ update msg { props, state } =
             , Cmd.none
             )
 
-        _ ->
+        DeleteComplete ->
             ( { props = props
               , state = state
               }
-            , Cmd.none
+            , Routes.post <| Json.Encode.object [ ( "url", Json.Encode.string <| Routes.todosDeleteComplete ) ]
             )
 
 

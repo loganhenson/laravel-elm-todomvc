@@ -28,5 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('{id}', [App\Http\Controllers\TodosController::class, 'update'])->name('todos.update');
 
         Route::post('toggle-all', App\Http\Controllers\TodosToggleAllController::class)->name('todos.toggle-all');
+        Route::post('delete-complete', App\Http\Controllers\TodosDeleteCompleteController::class)
+            ->name('todos.delete-complete');
     });
 });

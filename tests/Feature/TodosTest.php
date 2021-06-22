@@ -101,4 +101,18 @@ class TodosTest extends TestCase
 
         $this->assertEquals(3, Todo::where('completed', true)->count());
     }
+
+    /** @test */
+    public function can_delete_complete()
+    {
+        $user = User::factory()->has(Todo::factory([
+            'completed' => true,
+        ])->count(3))->create();
+
+        $this->actingAs($user)
+            ->post(route('todos.delete-complete'))
+            ->assertRedirect(route('home'));
+
+        $this->assertDatabaseCount(Todo::class, 0);
+    }
 }
