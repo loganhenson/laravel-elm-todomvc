@@ -227,6 +227,13 @@ update msg { props, state } =
                     ]
             )
 
+        ChangeVisibility visibility ->
+            ( { props = props
+              , state = { state | visibility = visibility }
+              }
+            , Cmd.none
+            )
+
         _ ->
             ( { props = props
               , state = state
