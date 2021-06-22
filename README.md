@@ -37,4 +37,10 @@ cp .env.example .env
 php artisan migrate
 ```
 
+> Open!
+```bash
+valet link
+valet open
+```
+
 ![Laravel Elm Todo-MVC](https://github.com/loganhenson/laravel-elm-todomvc/blob/main/laravel-elm-todomvc-image.png?raw=true)
