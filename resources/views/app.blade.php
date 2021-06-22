@@ -26,7 +26,7 @@
         >
     </head>
 
-    <body class="bg-white max-w-screen-lg mx-auto">
+    <body class="bg-gray-100 dark:bg-gray-900 max-w-screen-lg mx-auto">
         @elm
 
         <script src="{{ mix('/js/app.js') }}"></script>

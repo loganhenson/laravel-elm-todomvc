@@ -1,19 +1,22 @@
 module Home exposing (..)
 
+import Decoders exposing (decodeUser)
 import Html exposing (Attribute, Html, a, button, div, footer, h1, header, input, label, li, p, section, span, strong, text, ul)
 import Html.Attributes exposing (autofocus, checked, class, classList, for, hidden, href, id, name, placeholder, style, type_, value)
 import Html.Events exposing (keyCode, on, onBlur, onClick, onDoubleClick, onInput)
 import Html.Keyed as Keyed
 import Html.Lazy exposing (lazy, lazy2, lazy3)
 import Json.Decode as Json exposing (Decoder, Value, bool, decodeValue, int, list, string, succeed)
-import Json.Decode.Pipeline exposing (required)
+import Json.Decode.Pipeline exposing (optional, required)
 import Json.Encode
 import LaravelElm exposing (Page, page)
+import Nav exposing (NavMsg)
 import Routes
+import Types exposing (User)
 
 
 type alias Props =
-    { todos : List Todo }
+    { route : String, user : User, todos : List Todo }
 
 
 type alias State =
@@ -31,6 +34,7 @@ type alias Model =
 
 type Msg
     = NewProps Value
+    | NavMsg NavMsg
     | UpdateField String
     | EditingEntry Int Bool
     | UpdateEntry Int String
@@ -61,6 +65,8 @@ decodeTodo =
 decodeProps : Decoder Props
 decodeProps =
     succeed Props
+        |> required "route" string
+        |> required "user" decodeUser
         |> required "todos" (list decodeTodo)
 
 
@@ -99,6 +105,13 @@ update msg { props, state } =
               }
             , Cmd.none
             )
+
+        NavMsg m ->
+            Nav.update
+                { props = props
+                , state = state
+                }
+                m
 
         EditingEntry id editing ->
             ( { props = props
@@ -248,7 +261,8 @@ view { props, state } =
         [ class "todomvc-wrapper"
         , style "visibility" "hidden"
         ]
-        [ section
+        [ Html.map NavMsg <| Nav.view props.route (Just props.user)
+        , section
             [ class "todoapp" ]
             [ lazy viewInput state.field
             , lazy3 viewTodos state.editingTodo state.visibility props.todos
