@@ -29,4 +29,22 @@ class TodosTest extends TestCase
 
         $this->get(route('home'))->assertJsonCount(1, 'props.todos');
     }
+
+    /** @test */
+    public function can_destroy_todo()
+    {
+        $user = User::factory()->create();
+        $todo = Todo::factory()->for($user)->create();
+
+        $this->actingAs($user)
+            ->delete(route('todos.destroy', $todo->id))
+            ->assertRedirect(route('home'));
+
+        $this->assertDatabaseMissing(Todo::class, [
+            'user_id' => $user->id,
+            'description' => 'test',
+        ]);
+
+        $this->get(route('home'))->assertJsonCount(0, 'props.todos');
+    }
 }

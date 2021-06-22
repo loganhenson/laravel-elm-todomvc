@@ -22,5 +22,8 @@ Elm::authRoutes();
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::post('todos', [App\Http\Controllers\TodosController::class, 'store'])->name('todos.store');
+    Route::prefix('todos')->group(function () {
+        Route::post('', [App\Http\Controllers\TodosController::class, 'store'])->name('todos.store');
+        Route::delete('{id}', [App\Http\Controllers\TodosController::class, 'destroy'])->name('todos.destroy');
+    });
 });

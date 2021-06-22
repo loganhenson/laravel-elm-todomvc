@@ -18,4 +18,11 @@ class TodosController extends Controller
 
         return redirect()->to('home');
     }
+
+    public function destroy($id)
+    {
+        auth()->user()->todos()->findOrFail($id)->delete();
+
+        return redirect()->to('home');
+    }
 }

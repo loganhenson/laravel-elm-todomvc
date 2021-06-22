@@ -90,6 +90,13 @@ update msg { props, state } =
             , Cmd.none
             )
 
+        Delete id ->
+            ( { props = props
+              , state = state
+              }
+            , Routes.delete <| Routes.todosDestroy (String.fromInt id)
+            )
+
         UpdateField task ->
             ( { props = props
               , state = { state | field = task }

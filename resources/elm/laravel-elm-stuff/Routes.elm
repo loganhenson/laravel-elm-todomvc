@@ -84,3 +84,9 @@ home =
 todosStore : String
 todosStore =
     "todos"
+
+
+todosDestroy : String -> String
+todosDestroy id =
+    "todos/{id}"
+        |> String.replace "{id}" id
