@@ -251,7 +251,7 @@ label[for='toggle-all'] {
 }
 
 .footer {
-    @apply flex;
+    @apply flex justify-between;
     color: #777;
     padding: 10px 15px;
     text-align: center;
@@ -274,7 +274,6 @@ label[for='toggle-all'] {
 }
 
 .todo-count {
-    float: left;
     text-align: left;
 }
 
@@ -315,8 +314,6 @@ label[for='toggle-all'] {
 
 .clear-completed,
 html .clear-completed:active {
-    float: right;
-    position: relative;
     line-height: 20px;
     text-decoration: none;
     cursor: pointer;
