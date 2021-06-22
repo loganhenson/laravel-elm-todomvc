@@ -90,3 +90,9 @@ todosDestroy : String -> String
 todosDestroy id =
     "todos/{id}"
         |> String.replace "{id}" id
+
+
+todosUpdate : String -> String
+todosUpdate id =
+    "todos/{id}"
+        |> String.replace "{id}" id

@@ -25,5 +25,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('todos')->group(function () {
         Route::post('', [App\Http\Controllers\TodosController::class, 'store'])->name('todos.store');
         Route::delete('{id}', [App\Http\Controllers\TodosController::class, 'destroy'])->name('todos.destroy');
+        Route::patch('{id}', [App\Http\Controllers\TodosController::class, 'update'])->name('todos.update');
     });
 });

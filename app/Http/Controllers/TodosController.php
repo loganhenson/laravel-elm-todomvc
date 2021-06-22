@@ -25,4 +25,17 @@ class TodosController extends Controller
 
         return redirect()->to('home');
     }
+
+    public function update($id)
+    {
+        request()->validate([
+            'completed' => 'required|bool',
+        ]);
+
+        auth()->user()->todos()->findOrFail($id)->update([
+            'completed' => request('completed'),
+        ]);
+
+        return redirect()->to('home');
+    }
 }

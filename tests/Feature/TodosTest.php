@@ -47,4 +47,25 @@ class TodosTest extends TestCase
 
         $this->get(route('home'))->assertJsonCount(0, 'props.todos');
     }
+
+    /** @test */
+    public function can_update_todo_completed_state()
+    {
+        $user = User::factory()->create();
+        $todo = Todo::factory()->for($user)->create();
+
+        $this->actingAs($user)
+            ->patch(route('todos.update', $todo->id), [
+                'completed' => true,
+            ])
+            ->assertRedirect(route('home'));
+
+        $this->assertDatabaseHas(Todo::class, [
+            'user_id' => $user->id,
+            'description' => 'test',
+            'completed' => true,
+        ]);
+
+        $this->get(route('home'))->assertJsonCount(1, 'props.todos');
+    }
 }

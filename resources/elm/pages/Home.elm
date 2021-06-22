@@ -97,6 +97,21 @@ update msg { props, state } =
             , Routes.delete <| Routes.todosDestroy (String.fromInt id)
             )
 
+        Check id completed ->
+            ( { props = props
+              , state = state
+              }
+            , Routes.patch <|
+                Json.Encode.object
+                    [ ( "url", Json.Encode.string <| Routes.todosUpdate (String.fromInt id) )
+                    , ( "data"
+                      , Json.Encode.object
+                            [ ( "completed", Json.Encode.string <| if completed then "1" else "0" )
+                            ]
+                      )
+                    ]
+            )
+
         UpdateField task ->
             ( { props = props
               , state = { state | field = task }
