@@ -7,6 +7,16 @@ Clone & run this repo to see what a (somewhat) real life Laravel Elm app looks l
 git clone git@github.com:loganhenson/laravel-elm-todomvc.git
 ```
 
+> Create your .env (Make sure to fill in your local database info!)
+```bash
+cp .env.example .env
+```
+
+> Generate your APP_KEY
+```bash
+php artisan key:generate
+```
+
 > Install composer dependencies
 ```bash
 composer install
@@ -27,11 +37,6 @@ npm run watch
 vendor/bin/phpunit
 ```
 
-> Create your .env (Make sure to fill in your local database info!)
-```bash
-cp .env.example .env
-```
-
 > Run the migrations
 ```bash
 php artisan migrate
@@ -42,6 +47,8 @@ php artisan migrate
 valet link
 valet open
 ```
+
+> Register at `/register` & `/home` houses the todo list!
 
 ## Credits
 - Adapted (with modifications) from https://github.com/evancz/elm-todomvc

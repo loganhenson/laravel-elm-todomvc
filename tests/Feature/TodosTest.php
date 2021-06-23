@@ -41,8 +41,7 @@ class TodosTest extends TestCase
             ->assertRedirect(route('home'));
 
         $this->assertDatabaseMissing(Todo::class, [
-            'user_id' => $user->id,
-            'description' => 'test',
+            'id' => $todo->id,
         ]);
 
         $this->get(route('home'))->assertJsonCount(0, 'props.todos');
