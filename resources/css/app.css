@@ -2,7 +2,7 @@
 
 @tailwind components;
 
-/** Your CSS Here **/
-@import "./style.css";
+@import "./nprogress.css";
+@import "./todo-mvc.css";
 
 @tailwind utilities;
