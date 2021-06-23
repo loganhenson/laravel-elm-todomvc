@@ -43,4 +43,7 @@ valet link
 valet open
 ```
 
+## Credits
+- Adapted (with modifications) from https://github.com/evancz/elm-todomvc
+
 ![Laravel Elm Todo-MVC](https://github.com/loganhenson/laravel-elm-todomvc/blob/main/laravel-elm-todomvc-image.png?raw=true)
