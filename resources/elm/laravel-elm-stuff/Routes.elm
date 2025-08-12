@@ -86,6 +86,16 @@ todosStore =
     "todos"
 
 
+todosToggleAll : String
+todosToggleAll =
+    "todos/toggle-all"
+
+
+todosClearCompleted : String
+todosClearCompleted =
+    "todos/clear-completed"
+
+
 todosUpdate : String -> String
 todosUpdate todo =
     "todos/{todo}"
@@ -96,16 +106,6 @@ todosDestroy : String -> String
 todosDestroy todo =
     "todos/{todo}"
         |> String.replace "{todo}" todo
-
-
-todosToggleAll : String
-todosToggleAll =
-    "todos/toggle-all"
-
-
-todosClearCompleted : String
-todosClearCompleted =
-    "todos/clear-completed"
 
 
 storageLocal : String -> String
